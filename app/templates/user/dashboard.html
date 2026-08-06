@@ -1,0 +1,31 @@
+{% extends 'layouts/user_base.html' %}
+{% block user_content %}
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card card-earth p-4">
+      <h4>Recommended Treks</h4>
+      {% for trek in recommended %}
+        <div class="border-bottom py-3">
+          <h5>{{ trek.title }}</h5>
+          <p class="text-muted-soft">{{ trek.location }} • ${{ trek.price }}</p>
+        </div>
+      {% else %}
+        <p class="text-muted-soft">No recommendations yet. Explore the trek library.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card card-earth p-4">
+      <h4>Upcoming Bookings</h4>
+      {% for booking in upcoming_bookings %}
+        <div class="border-bottom py-3">
+          <h5>{{ booking.trek.title }}</h5>
+          <p class="text-muted-soft">Start: {{ booking.trek.start_date.strftime('%b %d, %Y') }} • Status: {{ booking.status.title() }}</p>
+        </div>
+      {% else %}
+        <p class="text-muted-soft">No upcoming bookings. Find your next trail now.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

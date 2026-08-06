@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Treks • Trekspire{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+      <h2 class="section-heading">Available Treks</h2>
+      <p class="text-muted-soft">Filter journeys by location, difficulty, duration, and price.</p>
+    </div>
+    <div class="col-md-6">
+      <form class="row g-2" method="GET">
+        <div class="col-12 col-sm-6 col-md-3"><input class="form-control" name="location" placeholder="Location" value="{{ request.args.location or '' }}"></div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <select class="form-select" name="difficulty">
+            <option value="">Difficulty</option>
+            <option value="easy" {% if request.args.difficulty == 'easy' %}selected{% endif %}>Easy</option>
+            <option value="moderate" {% if request.args.difficulty == 'moderate' %}selected{% endif %}>Moderate</option>
+            <option value="hard" {% if request.args.difficulty == 'hard' %}selected{% endif %}>Hard</option>
+          </select>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3"><input class="form-control" name="duration" placeholder="Duration" value="{{ request.args.duration or '' }}"></div>
+        <div class="col-12 col-sm-6 col-md-2"><input class="form-control" name="price" placeholder="Max Price" value="{{ request.args.price or '' }}"></div>
+        <div class="col-12 col-md-1"><button class="btn btn-earth w-100">Go</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="row g-4">
+    {% for trek in treks %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-earth h-100">
+          <img src="{{ trek.image_url or 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=900&q=60' }}" class="card-img-top" alt="{{ trek.title }}">
+          <div class="card-body d-flex flex-column">
+            <h5>{{ trek.title }}</h5>
+            <p class="text-muted-soft mb-2">{{ trek.location }} • {{ trek.difficulty | title }}</p>
+            <p class="mb-3">{{ trek.description[:100] }}{% if trek.description|length > 100 %}...{% endif %}</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <span class="badge badge-earth">{{ trek.duration }}</span>
+              <a href="{{ url_for('main.trek_detail', trek_id=trek.id) }}" class="btn btn-sm btn-earth">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% if not treks %}
+      <div class="col-12"><div class="alert alert-secondary">No treks match your search. Try a broader filter.</div></div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

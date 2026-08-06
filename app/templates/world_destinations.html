@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Worldwide Destinations • Trekspire{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="section-heading">Worldwide Trek Destinations</h1>
+    <p class="text-muted-soft">Explore famous global routes and iconic nature experiences worth visiting.</p>
+  </div>
+  <div class="row g-4">
+    {% for destination in destinations %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-earth h-100 overflow-hidden">
+          <img src="{{ destination.image }}" class="card-img-top" alt="{{ destination.name }}">
+          <div class="card-body">
+            <h5>{{ destination.name }}</h5>
+            <p class="text-muted-soft mb-2">{{ destination.region }}</p>
+            <p>{{ destination.highlight }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

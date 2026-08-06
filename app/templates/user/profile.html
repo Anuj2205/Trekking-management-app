@@ -1,0 +1,11 @@
+{% extends 'layouts/user_base.html' %}
+{% block user_content %}
+<div class="card card-earth p-4 col-lg-6 mx-auto">
+  <h4>Edit Profile</h4>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">{{ form.full_name.label(class_='form-label') }}{{ form.full_name(class_='form-control') }}</div>
+    <button class="btn btn-earth">Update Profile</button>
+  </form>
+</div>
+{% endblock %}

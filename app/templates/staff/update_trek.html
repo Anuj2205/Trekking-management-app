@@ -1,0 +1,21 @@
+{% extends 'layouts/staff_base.html' %}
+{% block staff_content %}
+<div class="card card-earth p-4">
+  <h4>Update Trek Status</h4>
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <select name="status" class="form-select">
+        <option value="open" {% if trek.status == 'open' %}selected{% endif %}>Open</option>
+        <option value="closed" {% if trek.status == 'closed' %}selected{% endif %}>Closed</option>
+        <option value="completed" {% if trek.status == 'completed' %}selected{% endif %}>Completed</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Available Slots</label>
+      <input type="number" name="available_slots" class="form-control" value="{{ trek.available_slots }}">
+    </div>
+    <button class="btn btn-earth">Save updates</button>
+  </form>
+</div>
+{% endblock %}

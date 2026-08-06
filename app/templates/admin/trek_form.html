@@ -1,0 +1,24 @@
+{% extends 'layouts/admin_base.html' %}
+{% block admin_content %}
+<div class="card card-earth p-4">
+  <h4>{{ action }}</h4>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="row g-3">
+      <div class="col-md-6">{{ form.title.label(class_='form-label') }}{{ form.title(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.location.label(class_='form-label') }}{{ form.location(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.difficulty.label(class_='form-label') }}{{ form.difficulty(class_='form-select') }}</div>
+      <div class="col-md-6">{{ form.duration.label(class_='form-label') }}{{ form.duration(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.available_slots.label(class_='form-label') }}{{ form.available_slots(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.price.label(class_='form-label') }}{{ form.price(class_='form-control') }}</div>
+      <div class="col-12">{{ form.description.label(class_='form-label') }}{{ form.description(class_='form-control', rows=4) }}</div>
+      <div class="col-md-6">{{ form.image_url.label(class_='form-label') }}{{ form.image_url(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.status.label(class_='form-label') }}{{ form.status(class_='form-select') }}</div>
+      <div class="col-md-6">{{ form.start_date.label(class_='form-label') }}{{ form.start_date(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.end_date.label(class_='form-label') }}{{ form.end_date(class_='form-control') }}</div>
+      <div class="col-md-6">{{ form.assigned_staff.label(class_='form-label') }}{{ form.assigned_staff(class_='form-select') }}</div>
+    </div>
+    <div class="mt-4">{{ form.submit(class_='btn btn-earth') }}</div>
+  </form>
+</div>
+{% endblock %}
