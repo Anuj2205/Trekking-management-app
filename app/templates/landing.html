@@ -1,0 +1,171 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Trekspire Adventure Management{% endblock %}
+{% block content %}
+<div class="hero d-flex align-items-center text-white">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <span class="badge badge-earth mb-3">Adventure starts here</span>
+        <h1 class="display-5 fw-bold">Manage daring treks with clarity, care, and soul.</h1>
+        <p class="lead my-4">A complete Trek Management System built for guides, adventurers, and organizers who want to keep every expedition safe, scenic, and seamless.</p>
+        <a class="btn btn-earth btn-lg me-3" href="{{ url_for('main.register') }}">Join Trekspire</a>
+        <a class="btn btn-outline-light btn-lg" href="{{ url_for('main.trek_list') }}">Browse Treks</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="section-heading">Popular Treks</h2>
+    <p class="text-muted-soft">Select from inspired journeys shaped by mountains, forests, and wild horizons.</p>
+  </div>
+  <div class="row gy-4">
+    {% for trek in treks %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-earth h-100">
+          <img src="{{ trek.image_url or 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=60' }}" class="card-img-top" alt="{{ trek.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ trek.title }}</h5>
+            <p class="text-muted-small">{{ trek.location }} • {{ trek.difficulty | title }}</p>
+            <p class="card-text">{{ trek.description[:110] }}{% if trek.description|length > 110 %}...{% endif %}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="badge badge-earth">{{ trek.duration }}</span>
+              <a href="{{ url_for('main.trek_detail', trek_id=trek.id) }}" class="stretched-link text-earth">View details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="section-heading">Worldwide Destinations</h2>
+    <p class="text-muted-soft">Iconic routes and famous adventure locations from around the globe.</p>
+  </div>
+  <div class="card card-earth p-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+      {% for destination in destinations %}
+        <div class="col">
+          <a href="{{ destination.wiki_url }}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-body">
+            <div class="border rounded-4 p-3 h-100">
+              <h6 class="mb-1">{{ destination.name }}</h6>
+              <p class="text-muted-small mb-1">{{ destination.region }}</p>
+              <p class="mb-0">{{ destination.highlight }}</p>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row gy-4 align-items-center">
+    <div class="col-lg-6">
+      <div class="feature-box">
+        <h3>Why Choose Trekspire</h3>
+        <ul class="list-unstyled mt-3">
+          <li class="mb-3">• Expert trek curation with staff assignments and thoughtful terrain planning.</li>
+          <li class="mb-3">• Clear booking workflows, status tracking, and smart user guidance.</li>
+          <li>• Adventure-inspired dashboards for admin, staff, and travelers.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="row gy-4">
+        <div class="col-12">
+          <div class="card card-earth">
+            <div class="card-body">
+              <h5 class="card-title">Forest-friendly planning</h5>
+              <p>Every booking and trek detail is designed to keep users centered on the experience.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card card-earth">
+            <div class="card-body">
+              <h5 class="card-title">Staff approval and safety checks</h5>
+              <p>Admins manage staff approvals and ensure every trek is assigned to the right guides.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="section-heading">Testimonials</h2>
+    <p class="text-muted-soft">Real travelers love the way Trekspire makes adventure planning feel grounded and effortless.</p>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card card-earth p-4">
+        <p>"Trekspire helped our admin team launch new routes with confidence and clarity."</p>
+        <small class="text-muted-soft">— Mira, Adventure Coordinator</small>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-earth p-4">
+        <p>"Booking a trek was simple, and I love the suggested adventures."</p>
+        <small class="text-muted-soft">— Noah, Trekker</small>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-earth p-4">
+        <p>"As staff, I can update slot counts and status without wrestling with cluttered tools."</p>
+        <small class="text-muted-soft">— Asha, Guide</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="section-heading">Gallery</h2>
+  </div>
+  <div class="row g-3 grid-gallery">
+    <div class="col-sm-6 col-lg-3"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" alt="mountain"></div>
+    <div class="col-sm-6 col-lg-3"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="trail"></div>
+    <div class="col-sm-6 col-lg-3"><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80" alt="campfire"></div>
+    <div class="col-sm-6 col-lg-3"><img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80" alt="forest"></div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="row gy-4">
+    <div class="col-lg-6">
+      <h2 class="section-heading">Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">Can I manage bookings as a traveler?</button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Yes, travelers can book treks, cancel reservations, and review upcoming adventures.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">How do staff receive trek assignments?</button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">Admins assign staff at the trek creation stage. Staff then see assigned treks in their dashboard.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="feature-box h-100">
+        <h3>Ready to explore?</h3>
+        <p>Sign up and start mapping out safe, adventurous journeys for every kind of traveler.</p>
+        <a href="{{ url_for('main.register') }}" class="btn btn-earth">Start your journey</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% block title %}My Trekspire{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="section-heading">Your Adventure</h1>
+        <p class="text-muted-soft">See your upcoming journeys and plan the next expedition.</p>
+      </div>
+      <a href="{{ url_for('main.trek_list') }}" class="btn btn-earth">Explore Treks</a>
+    </div>
+    {% include 'partials/alerts.html' %}
+    {% block user_content %}{% endblock %}
+  </div>
+{% endblock %}

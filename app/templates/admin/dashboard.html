@@ -1,0 +1,129 @@
+{% extends 'layouts/admin_base.html' %}
+{% block admin_content %}
+<div class="row g-4">
+  <div class="col-lg-3">
+    <div class="card card-earth p-4">
+      <h5>Total Treks</h5>
+      <p class="display-6 mb-0">{{ total_treks }}</p>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card card-earth p-4">
+      <h5>Total Users</h5>
+      <p class="display-6 mb-0">{{ total_users }}</p>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card card-earth p-4">
+      <h5>Total Staff</h5>
+      <p class="display-6 mb-0">{{ total_staff }}</p>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card card-earth p-4">
+      <h5>Total Bookings</h5>
+      <p class="display-6 mb-0">{{ total_bookings }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mt-4">
+  <div class="col-12">
+    <div class="card card-earth p-4">
+      <form class="row g-2" method="GET">
+        <div class="col-md-10">
+          <input name="q" value="{{ request.args.q or '' }}" class="form-control" placeholder="Search treks, users, bookings">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-earth w-100">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mt-4">
+  <div class="col-lg-8">
+    <div class="card card-earth p-4">
+      <h4>Booking Trends</h4>
+      <p class="text-muted-soft">Recent counts help you judge the pace of new reservations.</p>
+      <div class="d-flex gap-3">
+        <div class="feature-box flex-fill text-center">
+          <h5>Today</h5>
+          <p class="display-5 mb-0">{{ trend_data[0] }}</p>
+        </div>
+        <div class="feature-box flex-fill text-center">
+          <h5>All Time</h5>
+          <p class="display-5 mb-0">{{ trend_data[1] }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card card-earth p-4">
+      <h4>Pending Staff</h4>
+      {% for profile in pending_staff %}
+        <div class="mb-3">
+          <strong>{{ profile.user.full_name }}</strong>
+          <p class="mb-1 text-muted-soft">{{ profile.experience }} | {{ profile.phone }}</p>
+          <form method="POST" action="{{ url_for('admin.approve_staff', staff_id=profile.id) }}">
+            <button class="btn btn-earth btn-sm">Approve</button>
+          </form>
+        </div>
+      {% else %}
+        <p class="text-muted-soft">No pending approvals.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card card-earth p-4">
+      <h4>Pending Staff</h4>
+      {% for profile in pending_staff %}
+        <div class="mb-3">
+          <strong>{{ profile.user.full_name }}</strong>
+          <p class="mb-1 text-muted-soft">{{ profile.experience }} | {{ profile.phone }}</p>
+          <form method="POST" action="{{ url_for('admin.approve_staff', staff_id=profile.id) }}">
+            <button class="btn btn-earth btn-sm">Approve</button>
+          </form>
+        </div>
+      {% else %}
+        <p class="text-muted-soft">No pending approvals.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% if searched %}
+<div class="row g-4 mt-4">
+  <div class="col-md-4">
+    <div class="card card-earth p-4">
+      <h5>Treks</h5>
+      {% for trek in search_results.treks %}
+        <div class="mb-3"><strong>{{ trek.title }}</strong><br><small class="text-muted-soft">{{ trek.location }}</small></div>
+      {% else %}
+        <p class="text-muted-soft">No treks found.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card card-earth p-4">
+      <h5>Users</h5>
+      {% for user in search_results.users %}
+        <div class="mb-3"><strong>{{ user.full_name }}</strong><br><small class="text-muted-soft">{{ user.email }}</small></div>
+      {% else %}
+        <p class="text-muted-soft">No users found.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card card-earth p-4">
+      <h5>Bookings</h5>
+      {% for booking in search_results.bookings %}
+        <div class="mb-3"><strong>{{ booking.user.full_name }}</strong><br><small class="text-muted-soft">{{ booking.trek.title }}</small></div>
+      {% else %}
+        <p class="text-muted-soft">No bookings found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+{% block title %}{{ trek.title }} • Trekspire{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row gy-4">
+    <div class="col-lg-7">
+      <div class="card card-earth shadow-sm overflow-hidden">
+        <img src="{{ trek.image_url or 'https://images.unsplash.com/photo-1542996957-f8a3f2e4938b?auto=format&fit=crop&w=1200&q=60' }}" class="img-fluid" alt="{{ trek.title }}">
+        <div class="card-body">
+          <h2 class="section-heading">{{ trek.title }}</h2>
+          <p class="text-muted-soft">{{ trek.location }} • {{ trek.difficulty | title }} • {{ trek.duration }}</p>
+          <p>{{ trek.description }}</p>
+          <div class="row g-3 mt-3">
+            <div class="col-sm-4"><div class="feature-box text-center p-3"><strong>Slots</strong><p class="mb-0">{{ trek.available_slots }}</p></div></div>
+            <div class="col-sm-4"><div class="feature-box text-center p-3"><strong>Start</strong><p class="mb-0">{{ trek.start_date.strftime('%b %d, %Y') }}</p></div></div>
+            <div class="col-sm-4"><div class="feature-box text-center p-3"><strong>Price</strong><p class="mb-0">${{ trek.price }}</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card card-earth p-4">
+        <h4>Details</h4>
+        <p class="text-muted-soft mb-3">Status: <strong>{{ trek.status.title() }}</strong></p>
+        <p>Assigned guide: <strong>{{ trek.assigned_staff.full_name if trek.assigned_staff else 'Not assigned' }}</strong></p>
+        {% if current_user.is_authenticated and current_user.is_user() %}
+          <form method="POST" action="{{ url_for('user.book_trek', trek_id=trek.id) }}">
+            {{ book_form.hidden_tag() }}
+            <button class="btn btn-earth w-100" {% if trek.status != 'open' or trek.available_slots <= 0 %}disabled{% endif %}>Book Trek</button>
+          </form>
+        {% else %}
+          <a href="{{ url_for('main.login') }}" class="btn btn-earth w-100">Sign in to book</a>
+        {% endif %}
+        <div class="mt-4">
+          <h5>What to bring</h5>
+          <ul class="text-muted-soft">
+            <li>Water bottle</li>
+            <li>Trail shoes</li>
+            <li>Layered clothing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

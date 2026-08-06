@@ -1,0 +1,25 @@
+{% extends 'layouts/admin_base.html' %}
+{% block admin_content %}
+<div class="card card-earth p-4">
+  <h4>Booking History</h4>
+  <div class="table-responsive">
+    <table class="table table-borderless align-middle mt-3">
+      <thead>
+        <tr><th>User</th><th>Trek</th><th>Date</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.user.full_name }}</td>
+            <td>{{ booking.trek.title }}</td>
+            <td>{{ booking.booking_date.strftime('%b %d, %Y') }}</td>
+            <td>{{ booking.status.title() }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="4" class="text-muted-soft">No booking history yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
