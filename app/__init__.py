@@ -6,6 +6,8 @@ from config import Config
 
 os.environ.setdefault('WERKZEUG_RUN_MAIN', 'true')
 
+# Initialize extensions once
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.login_view = 'main.login'
