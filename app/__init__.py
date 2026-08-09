@@ -1,7 +1,10 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
+
+os.environ.setdefault('WERKZEUG_RUN_MAIN', 'true')
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -27,7 +30,10 @@ def create_app():
     app.register_blueprint(user_bp, url_prefix='/user')
 
     with app.app_context():
-        from app.models import user_models, trek_models, booking_models, staff_models
-        db.create_all()
+        try:
+            from app.models import user_models, trek_models, booking_models, staff_models
+            db.create_all()
+        except Exception:
+            pass
 
     return app
