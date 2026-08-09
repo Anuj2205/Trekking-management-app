@@ -2,7 +2,7 @@
 
 ## Deploy Link
 
-Live demo: https://trekking-management-app-z5lx-7gvn6h08b-ad-7406.vercel.app/
+Live demo: https://trekking-management-app-kku8.vercel.app?_vercel_share=2fYMSMlFYspAXZeDay2fyPoSAdAKgFDH
 
 ## Project structure
 
